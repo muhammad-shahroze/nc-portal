@@ -1,0 +1,41 @@
+.title {
+  background-color: black;
+}
+
+.title h1 {
+  font-family: 'Monoton', cursive;
+  font-size: 35px;
+  color: white;
+}
+
+.title-container {
+  margin-top: 10px;
+  justify-content: left;  
+}
+
+.users-list {
+  margin: 20px;
+}
+
+.user-group {
+  flex-flow: row wrap;    
+  justify-content: flex-start;    
+}
+
+.user-item {
+  margin: 10px;
+  height: 50px; 
+}
+
+.user-box {
+  flex-flow: row wrap;    
+  justify-content: center;
+  margin-top: 20px;    
+  margin-left: 45px;
+  margin-right: 45px;
+}
+
+.show-all-users {
+  margin-right: 20px;
+  margin-left: 20px;
+}
