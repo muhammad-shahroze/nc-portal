@@ -1,0 +1,130 @@
+body {
+  background-color: #212529;
+  overflow-x: hidden;
+}
+
+.title {
+  font-family: "Bangers", cursive;
+}
+
+.nav {
+  display: grid;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+}
+
+.interact {
+  display: flex;
+  flex-direction: row;
+  border-style: solid;
+  border-color: darkslategray;
+  border-style: outset;
+  border-radius: 0.5em;
+}
+
+.a_comments {
+  border-style: solid;
+  border-radius: 10%;
+  height: 2em;
+  margin-top: 8px;
+  width: 150px;
+  padding: 0 0 0 0;
+}
+
+.article-border {
+  border-style: solid;
+  border-color: darkslategray;
+  border-style: outset;
+  border-radius: 0.5em;
+}
+
+.comment-border {
+  border-style: solid;
+  border-color: darkslategray;
+  border-style: outset;
+  border-radius: 0.5em;
+}
+
+.topic-border {
+  border-style: solid;
+  border-color: darkslategray;
+  border-radius: 0.5em;
+}
+
+.user-border {
+  border-style: solid;
+  border-color: darkslategray;
+}
+
+.nav-buttons {
+  color: teal;
+}
+
+.vote-button {
+  display: flex;
+}
+
+.login-box {
+  border-style: solid;
+  border-color: #ff0000;
+  height: 180px;
+  width: 80%;
+}
+
+.add-article-button {
+  display: flex;
+}
+
+.delete-article-button {
+  padding: 0.5em;
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 40%;
+  margin-left: 1em;
+}
+
+/* Articles */
+.articles-list-card .card-body h5 small {
+  font-style: italic;
+}
+
+.articles-list-card .voting-container {
+  width: 50px;
+  font-size: 20px;
+  padding: 15px;
+}
+
+.articles-list-card h5 a {
+  color: #fff;
+}
+
+.articles-list-card h5 a:hover {
+  color: #ddd;
+  text-decoration: none;
+}
+
+.navbar {
+  min-height: 80px;
+}
+
+.navbar-brand {
+  padding: 0 15px;
+  height: 80px;
+  line-height: 80px;
+}
+
+.navbar-toggle {
+  /* (80px - button height 34px) / 2 = 23px */
+  margin-top: 23px;
+  padding: 9px 10px !important;
+}
+
+@media (min-width: 768px) {
+  .navbar-nav > li > a {
+    /* (80px - line-height of 27px) / 2 = 26.5px */
+    padding-top: 26.5px;
+    padding-bottom: 26.5px;
+    line-height: 27px;
+  }
+}
