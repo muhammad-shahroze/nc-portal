@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { Link } from "@reach/router";
+import UserDashboard from "../home/UserDashboard";
 
 export class Header extends Component {
   render() {
@@ -24,6 +25,7 @@ export class Header extends Component {
             </Link>
           </Nav>
         </Nav>
+        <UserDashboard className="mr-sm-2" />
       </Navbar>
     );
   }

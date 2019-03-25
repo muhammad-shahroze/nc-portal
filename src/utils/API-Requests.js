@@ -9,6 +9,11 @@ export const fetchUsers = async () => {
   return data.users;
 };
 
+export const fetchUserByUsername = async username => {
+  const { data } = await request.get(`/users/${username}`);
+  return data.user;
+};
+
 export const fetchArticles = async () => {
   const { data } = await request.get("/articles");
   return data.articles;
@@ -47,6 +52,11 @@ export const deleteArticle = async article_id => {
 export const postTopic = async newTopic => {
   const { data } = await request.post("/topics", newTopic);
   return data.topic;
+};
+
+export const postUser = async newUser => {
+  const { data } = await request.post("/users", newUser);
+  return data.user;
 };
 
 export const patchArticleVotes = async (article_id, voteChange) => {

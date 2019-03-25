@@ -3,6 +3,7 @@ import { Button, Modal, Form } from "react-bootstrap";
 import { fetchTopics } from "../../utils/API-Requests";
 import { postArticle } from "../../utils/API-Requests";
 import { navigate } from "@reach/router";
+import { handleChange } from "../../utils/handleChange";
 
 export class NewArticleModal extends Component {
   state = {
@@ -11,7 +12,7 @@ export class NewArticleModal extends Component {
     title: "",
     topic: "",
     body: "",
-    author: "happyamy2016"
+    author: ""
   };
 
   toggleNewArticleModal = () => {
@@ -20,7 +21,7 @@ export class NewArticleModal extends Component {
     });
   };
 
-  componentWillMount() {
+  componentDidMount() {
     fetchTopics().then(topics =>
       this.setState({
         topics: topics,
@@ -33,10 +34,10 @@ export class NewArticleModal extends Component {
     event.preventDefault();
     const { title, body, author, topic } = this.state;
     const newArticle = {
-      title: title,
-      body: body,
-      author: author,
-      topic: topic
+      title,
+      body,
+      author,
+      topic
     };
     postArticle(newArticle).then(article => {
       navigate(`/articles/${article.article_id}`);
@@ -44,15 +45,14 @@ export class NewArticleModal extends Component {
     this.toggleNewArticleModal();
   };
 
-  handleChange = e => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  };
-
   render() {
     return (
       <>
-        <Button variant="primary" onClick={this.toggleNewArticleModal}>
+        <Button
+          className="mr-2"
+          variant="primary"
+          onClick={this.toggleNewArticleModal}
+        >
           New Article
         </Button>
         <Modal show={this.state.showing} onHide={this.toggleNewArticleModal}>
@@ -66,7 +66,8 @@ export class NewArticleModal extends Component {
                 <Form.Control
                   type="text"
                   name="title"
-                  onChange={this.handleChange}
+                  onChange={e => this.setState(handleChange(e))}
+                  placeholder="e.g. Learning Python"
                 />
               </Form.Group>
               <Form.Group>
@@ -74,7 +75,7 @@ export class NewArticleModal extends Component {
                 <Form.Control
                   as="select"
                   name="topic"
-                  onChange={this.handleChange}
+                  onChange={e => this.setState(handleChange(e))}
                 >
                   {this.state.topics.map(topic => {
                     return <option key={topic.slug}>{topic.slug}</option>;
@@ -87,7 +88,8 @@ export class NewArticleModal extends Component {
                   as="textarea"
                   rows="3"
                   name="body"
-                  onChange={this.handleChange}
+                  onChange={e => this.setState(handleChange(e))}
+                  placeholder="e.g. Unearthing the python concepts..."
                 />
               </Form.Group>
             </Form>
@@ -97,7 +99,7 @@ export class NewArticleModal extends Component {
               Close
             </Button>
             <Button variant="primary" onClick={this.createNewArticle}>
-              Save Changes
+              Post Article
             </Button>
           </Modal.Footer>
         </Modal>
