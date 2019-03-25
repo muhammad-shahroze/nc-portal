@@ -3,7 +3,6 @@ import { Link } from "@reach/router";
 import { Card, Badge } from "react-bootstrap";
 
 function ArticleList({ articles }) {
-  console.log(articles);
   return articles.map(article => {
     return (
       <Card

@@ -7,6 +7,7 @@ import Articles from "./components/Articles";
 import Nomatch from "./components/Nomatch";
 import Article from "./components/Article";
 import Header from "./components/Layout/Header";
+import UsersList from "./components/UsersList";
 // import { fetchUsers } from '../utils/API-Requests';
 
 class App extends Component {
@@ -26,6 +27,7 @@ class App extends Component {
         <Router className="container">
           <Home path="/" />
           <Topics path="/topics" />
+          <UsersList path="/users" />
           <Articles path="/articles" />
           <Nomatch default />
           <Article path="/articles/:article_id" />
