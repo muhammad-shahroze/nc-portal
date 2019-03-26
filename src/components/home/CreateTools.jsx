@@ -18,10 +18,14 @@ export class CreateTools extends Component {
     return (
       <Row className="mb-2">
         <Col>
-          <div className="float-right">
-            <NewArticleModal />
-            <NewTopicModal />
-          </div>
+          {localStorage.getItem("user") ? (
+            <div className="float-right">
+              <NewArticleModal />
+              <NewTopicModal />
+            </div>
+          ) : (
+            ""
+          )}
         </Col>
       </Row>
     );

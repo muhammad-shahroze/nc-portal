@@ -21,7 +21,7 @@ class AllUsersModal extends Component {
       .then(user => {
         this.setState({ user });
         localStorage.setItem("user", JSON.stringify(user));
-        this.toggleLogin();
+        window.location.reload();
       })
       .catch(err => {
         this.setState({ user: null });

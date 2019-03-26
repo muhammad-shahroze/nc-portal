@@ -19,7 +19,6 @@ class App extends Component {
           <Articles path="/articles" />
           <Nomatch default />
           <Article path="/articles/:article_id" />
-          {/* <Article path='/articles/:article_id' user={this.state.user} /> */}
         </Router>
       </div>
     );
