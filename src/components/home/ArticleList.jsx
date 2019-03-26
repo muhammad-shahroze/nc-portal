@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "@reach/router";
 import { Card, Badge } from "react-bootstrap";
+let moment = require("moment");
 
 function ArticleList({ articles }) {
   return articles.map(article => {
@@ -34,6 +35,9 @@ function ArticleList({ articles }) {
           <Card.Footer>
             <small className="text-muted">
               {article.comment_count} Comments
+            </small>
+            <small className="text-info float-right">
+              date posted - {moment(article.created_at).format("YYYY MM DD")}
             </small>
           </Card.Footer>
         </div>

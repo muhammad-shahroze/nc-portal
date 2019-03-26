@@ -29,7 +29,10 @@ class AllUsersModal extends Component {
   };
 
   getCurrentUser = () => {
-    return JSON.parse(localStorage.getItem("user"));
+    const userItem = localStorage.getItem("user");
+    if (userItem !== undefined) {
+      return JSON.parse(userItem);
+    }
   };
 
   signOut = () => {
@@ -89,7 +92,12 @@ class AllUsersModal extends Component {
                 />
                 <Form.Text className="text-muted" />
               </Form.Group>
-              <Button variant="primary" type="button" onClick={this.login}>
+              <Button
+                variant="primary"
+                type="button"
+                onClick={this.login}
+                disabled={this.state.username === ""}
+              >
                 Sign-in
               </Button>
               <Button
