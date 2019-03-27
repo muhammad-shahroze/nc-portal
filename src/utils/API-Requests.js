@@ -73,7 +73,7 @@ export const deleteComment = async comment_id => {
 
 export const postCommentByArticleId = async (article_id, newComment) => {
   const { data } = await request.post(
-    `/articles/${article_id}/comment`,
+    `/articles/${article_id}/comments`,
     newComment
   );
   return data.comment;

@@ -3,11 +3,13 @@ import { fetchCommentsByArticleId } from "../utils/API-Requests";
 import { Link } from "@reach/router";
 import CommentVoter from "./CommentVoter";
 import { Card, Badge } from "react-bootstrap";
+import { Button, UncontrolledCollapse, Card, CardBody } from "reactstrap";
 let moment = require("moment");
 
 export class Comments extends Component {
   state = {
-    comments: []
+    comments: [],
+    newCommentBody: ""
   };
 
   componentDidMount() {
@@ -16,9 +18,53 @@ export class Comments extends Component {
     });
   }
 
+  handleSubmit = event => {
+    event.preventDefault();
+    const newComment = {
+      author: JSON.parse(localStorage.getItem("user")).username,
+      body: this.state.newCommentBody
+    };
+    postCommentByArticleId(this.props.article_id, newComment).then(comment => {
+      this.setState({ newCommentBody: "" });
+      console.log(comment);
+    });
+  };
+
   render() {
     return (
       <div>
+        <div>
+          <Button color="primary" id="toggler" style={{ marginBottom: "1rem" }}>
+            Post Comment
+          </Button>
+          <UncontrolledCollapse toggler="#toggler">
+            <Card>
+              <CardBody>
+                <form>
+                  <div class="form-group">
+                    <label for="exampleFormControlTextarea1" />
+                    <textarea
+                      name="newCommentBody"
+                      value={this.state.newCommentBody}
+                      class="form-control"
+                      id="exampleFormControlTextarea1"
+                      rows="3"
+                      type="text"
+                      onChange={e => this.setState(handleChange(e))}
+                    />
+                  </div>
+                </form>
+                <Button
+                  className="float-right btn btn-primary btn-sm"
+                  variant="primary"
+                  onClick={this.handleSubmit}
+                >
+                  Add new Comment
+                </Button>
+              </CardBody>
+            </Card>
+          </UncontrolledCollapse>
+        </div>
         <h3>Comments</h3>
         {this.state.comments.map(comment => {
           return (

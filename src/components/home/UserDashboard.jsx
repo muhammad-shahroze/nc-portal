@@ -1,13 +1,18 @@
 import React, { Component } from "react";
 import { ButtonToolbar, Modal, Button, Form } from "react-bootstrap";
 import { handleChange } from "../../utils/handleChange";
-import { postUser, fetchUserByUsername } from "../../utils/API-Requests";
+import {
+  fetchUsers,
+  postUser,
+  fetchUserByUsername
+} from "../../utils/API-Requests";
 
 class AllUsersModal extends Component {
   state = {
     smShow: false,
     username: "",
-    user: {}
+    user: {},
+    allusers: []
   };
 
   toggleLogin = () => {
@@ -51,12 +56,22 @@ class AllUsersModal extends Component {
     });
   };
 
+  fetchAllUsers = () => {
+    fetchUsers().then(user => {
+      this.setState({
+        allusers: user
+      });
+    });
+  };
+
   render() {
     return (
       <ButtonToolbar>
         {this.getCurrentUser() ? (
           <>
-            <span>Welcome {this.getCurrentUser().username}!</span>
+            <span className="text-success">
+              Welcome {this.getCurrentUser().username}!
+            </span>
             <Button
               className="ml-1"
               variant="secondary"

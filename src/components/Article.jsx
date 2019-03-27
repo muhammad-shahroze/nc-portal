@@ -39,7 +39,7 @@ class Article extends Component {
           </div>
           <div className="content w-100">
             <Card.Body>
-              <h5 class="card-title">{article.title}</h5>
+              <h5 className="card-title">{article.title}</h5>
               <Card.Text className="block-with-text">{article.body}</Card.Text>
             </Card.Body>
             <Card.Footer>
@@ -51,7 +51,6 @@ class Article extends Component {
           </div>
         </Card>
         <hr />
-        <NewComment />
         <Comments article_id={this.props.article_id} />
       </div>
     );
