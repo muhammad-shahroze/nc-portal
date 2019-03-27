@@ -73,7 +73,7 @@ class AllUsersModal extends Component {
               Welcome {this.getCurrentUser().username}!
             </span>
             <Button
-              className="ml-1"
+              className="ml-1 sign-out"
               variant="secondary"
               type="submit"
               size="sm"

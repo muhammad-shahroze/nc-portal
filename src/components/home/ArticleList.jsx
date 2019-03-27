@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "@reach/router";
 import { Card, Badge } from "react-bootstrap";
+import "../../styling/article.css";
 let moment = require("moment");
 
 function ArticleList({ articles }) {
@@ -29,7 +30,10 @@ function ArticleList({ articles }) {
               {article.topic}
             </Badge>
             <div className="clearfix" />
-            <h6 className="font-weight-light">Posted by: {article.author}</h6>
+            <h6 className="font-weight-light">
+              Posted by:{" "}
+              <span className="article-list-auther">{article.author}</span>
+            </h6>
             <Card.Text className="block-with-text">{article.body}</Card.Text>
           </Card.Body>
           <Card.Footer>

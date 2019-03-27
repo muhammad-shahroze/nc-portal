@@ -1,15 +1,21 @@
 import React, { Component } from "react";
-import { getArticleById, deleteArticle } from "../utils/API-Requests";
+import {
+  getArticleById,
+  deleteArticle,
+  patchArticle
+} from "../utils/API-Requests";
 import { navigate } from "@reach/router";
 import Comments from "./Comments";
-import ArticleVoter from "./ArticleVoter";
-import NewComment from "./NewComment";
-import { Card, Badge } from "react-bootstrap";
+import { Card } from "react-bootstrap";
+import { Button } from "reactstrap";
+import "../styling/article.css";
 let moment = require("moment");
 
 class Article extends Component {
   state = {
-    article: {}
+    article: {},
+    voteChange: 0,
+    hasError: false
   };
 
   componentDidMount() {
@@ -18,12 +24,25 @@ class Article extends Component {
     });
   }
 
-  handleDelete = event => {
+  handleDelete = () => {
     deleteArticle(this.props.article_id).then(() => navigate(`/articles`));
   };
 
+  handleVoteClick = voteChange => {
+    const { article_id } = this.props;
+    this.setState(prevState => ({
+      voteChange: prevState.voteChange + voteChange
+    }));
+    patchArticle(article_id, voteChange).catch(err => {
+      this.setState({
+        hasError: true
+      });
+    });
+  };
+
   render() {
-    const { article } = this.state;
+    console.log(this.props);
+    const { article, voteChange } = this.state;
     return (
       <div>
         <Card
@@ -33,20 +52,47 @@ class Article extends Component {
           key={article.article_id}
         >
           <div className="h-100 voting-container d-flex flex-column text-center">
-            <i className="fa fa-arrow-up text-success" aria-hidden="true" />
-            <span>{article.votes}</span>
-            <i className="fa fa-arrow-down text-danger" aria-hidden="true" />
+            <Button
+              className="vote"
+              color="secondary"
+              size="sm"
+              onClick={() => this.handleVoteClick(1)}
+            >
+              <i className="fa fa-arrow-up text-success" aria-hidden="true" />
+            </Button>
+            <p className="vote-count"> {article.votes + voteChange} </p>
+            <Button
+              className="vote"
+              color="secondary"
+              size="sm"
+              onClick={() => this.handleVoteClick(-1)}
+            >
+              <i className="fa fa-arrow-down text-danger" aria-hidden="true" />
+            </Button>
           </div>
           <div className="content w-100">
             <Card.Body>
               <h5 className="card-title">{article.title}</h5>
-              <Card.Text className="block-with-text">{article.body}</Card.Text>
+              <Card.Text>{article.body}</Card.Text>
             </Card.Body>
             <Card.Footer>
               <small className="text-info">Posted by: {article.author}</small>
               <small className="text-info float-right">
                 date posted - {moment(article.created_at).format("YYYY MM DD")}
               </small>
+              {JSON.parse(localStorage.getItem("user")).username ===
+              this.state.article.author ? (
+                <Button
+                  color="danger"
+                  size="sm"
+                  className="float-right mr-2 delete"
+                  onClick={this.handleDelete}
+                >
+                  Delete Post
+                </Button>
+              ) : (
+                ""
+              )}
             </Card.Footer>
           </div>
         </Card>

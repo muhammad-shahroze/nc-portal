@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { Link } from "@reach/router";
 import UserDashboard from "../home/UserDashboard";
-import { Button } from "react-bootstrap";
 
 export class Header extends Component {
   render() {

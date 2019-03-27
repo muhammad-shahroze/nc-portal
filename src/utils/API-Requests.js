@@ -59,11 +59,18 @@ export const postUser = async newUser => {
   return data.user;
 };
 
-export const patchArticleVotes = async (article_id, voteChange) => {
+export const patchArticle = async (article_id, voteChange) => {
   const { data } = await request.patch(`/articles/${article_id}`, {
     inc_votes: voteChange
   });
   return data.article;
+};
+
+export const patchComment = async (comment_id, voteChange) => {
+  const { data } = await request.patch(`/comments/${comment_id}`, {
+    inc_votes: voteChange
+  });
+  return data.comment;
 };
 
 export const deleteComment = async comment_id => {
