@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { fetchCommentsByArticleId } from "../utils/API-Requests";
+import { fetchCommentsByArticleId, deleteComment } from "../utils/API-Requests";
 import { Link } from "@reach/router";
-import { Card, Badge, Button } from "react-bootstrap";
-import { Collapse, CardBody } from "reactstrap";
+import { Card, Badge } from "react-bootstrap";
+import { Collapse, CardBody, Button } from "reactstrap";
 import { handleChange } from "../utils/handleChange";
 import { postCommentByArticleId, patchComment } from "../utils/API-Requests";
+import { getUserLoginStatus } from "../utils/getUserLoginStatus";
 
 let moment = require("moment");
 
@@ -56,6 +57,13 @@ export class Comments extends Component {
       this.setState({
         hasError: true
       });
+    });
+  };
+
+  handleDelete = index => {
+    const comment = this.state.comments[index];
+    deleteComment(comment.comment_id).then(() => {
+      this.getComments();
     });
   };
 
@@ -155,6 +163,20 @@ export class Comments extends Component {
                     date posted -{" "}
                     {moment(comment.created_at).format("YYYY MM DD")}
                   </small>
+                  {getUserLoginStatus() &&
+                  JSON.parse(localStorage.getItem("user")).username ===
+                    comment.author ? (
+                    <Button
+                      color="danger"
+                      size="sm"
+                      className="float-right mr-2 delete"
+                      onClick={() => this.handleDelete(index)}
+                    >
+                      Delete Post
+                    </Button>
+                  ) : (
+                    ""
+                  )}
                 </Card.Footer>
               </div>
             </Card>

@@ -74,7 +74,7 @@ export const patchComment = async (comment_id, voteChange) => {
 };
 
 export const deleteComment = async comment_id => {
-  const { data } = await request.delete(`/articles/${comment_id}`);
+  const { data } = await request.delete(`/comments/${comment_id}`);
   return data;
 };
 

@@ -16,5 +16,10 @@
 }
 
 .article-list-auther {
-  color: blue;
+  color: #689f38;
+  font-size: 15px;
+}
+
+h6 {
+  font-size: 0.9rem;
 }

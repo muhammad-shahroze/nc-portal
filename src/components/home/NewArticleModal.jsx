@@ -57,7 +57,7 @@ export class NewArticleModal extends Component {
         </Button>
         <Modal show={this.state.showing} onHide={this.toggleNewArticleModal}>
           <Modal.Header closeButton>
-            <Modal.Title>New Article</Modal.Title>
+            <Modal.Title>Complete all the fields</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
