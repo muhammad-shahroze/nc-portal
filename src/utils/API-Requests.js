@@ -14,8 +14,23 @@ export const fetchUserByUsername = async username => {
   return data.user;
 };
 
-export const fetchArticles = async () => {
-  const { data } = await request.get("/articles");
+export const fetchArticles = async (topic, sort_by, order) => {
+  let query = "";
+  if (topic || sort_by || order) {
+    const queryArr = [
+      topic ? `topic=${topic}` : "",
+      sort_by ? `sort_by=${sort_by}` : "",
+      order ? `order=${order}` : ""
+    ];
+    query +=
+      "?" +
+      queryArr
+        .filter(
+          queryType => typeof queryType === "string" && queryType.length > 0
+        )
+        .join("&");
+  }
+  const { data } = await request.get(`/articles${query}`);
   return data.articles;
 };
 

@@ -2,11 +2,19 @@ import React, { Component } from "react";
 import { fetchArticles } from "../../utils/API-Requests";
 import CreateTools from "./CreateTools";
 import ArticleList from "./ArticleList";
+import {
+  ButtonDropdown,
+  DropdownMenu,
+  DropdownItem,
+  DropdownToggle
+} from "reactstrap";
 import "./Home.css";
 
 class Home extends Component {
   state = {
-    articles: []
+    articles: [],
+    filterdropdownOpen: false,
+    sortdropdownOpen: false
   };
 
   componentDidMount() {
@@ -17,37 +25,82 @@ class Home extends Component {
     );
   }
 
+  toggleSort = () => {
+    this.setState({
+      sortdropdownOpen: !this.state.sortdropdownOpen
+    });
+  };
+
+  togglefilter = () => {
+    this.setState({
+      filterdropdownOpen: !this.state.filterdropdownOpen
+    });
+  };
+
+  filterByTopic = topic => {
+    fetchArticles(topic).then(articles => {
+      this.setState({
+        articles
+      });
+    });
+  };
+
+  sortArticles = (sortBy, order) => {
+    fetchArticles(null, sortBy, order).then(articles => {
+      this.setState({
+        articles
+      });
+    });
+  };
+
   render() {
     return (
       <div>
-        <div class="btn-group">
-          <button
-            class="btn btn-secondary btn-sm dropdown-toggle"
-            type="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Small button
-          </button>
-          <div class="dropdown-menu">...</div>
-        </div>
-        <div class="btn-group">
-          <button class="btn btn-secondary btn-sm" type="button">
-            Small split button
-          </button>
-          <button
-            type="button"
-            class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            <span class="sr-only">Toggle Dropdown</span>
-          </button>
-          <div class="dropdown-menu">...</div>
-        </div>
-        <br />
+        <ButtonDropdown
+          className="filter-dropdown"
+          isOpen={this.state.filterdropdownOpen}
+          toggle={this.togglefilter}
+        >
+          <DropdownToggle caret color="secondary" size="sm">
+            Filter
+          </DropdownToggle>
+          <DropdownMenu>
+            <DropdownItem onClick={() => this.filterByTopic()}>
+              All
+            </DropdownItem>
+            <DropdownItem onClick={() => this.filterByTopic("football")}>
+              Football
+            </DropdownItem>
+            <DropdownItem onClick={() => this.filterByTopic("cooking")}>
+              Cooking
+            </DropdownItem>
+            <DropdownItem onClick={() => this.filterByTopic("coding")}>
+              Coding
+            </DropdownItem>
+          </DropdownMenu>
+        </ButtonDropdown>
+
+        <ButtonDropdown
+          className="sort-dropdown ml-2"
+          isOpen={this.state.sortdropdownOpen}
+          toggle={this.toggleSort}
+        >
+          <DropdownToggle caret color="secondary" size="sm">
+            Sort
+          </DropdownToggle>
+          <DropdownMenu>
+            <DropdownItem onClick={() => this.sortArticles()}>All</DropdownItem>
+            <DropdownItem onClick={() => this.sortArticles("created_at")}>
+              Date
+            </DropdownItem>
+            <DropdownItem onClick={() => this.sortArticles("comment_count")}>
+              Comments
+            </DropdownItem>
+            <DropdownItem onClick={() => this.sortArticles("votes")}>
+              Votes
+            </DropdownItem>
+          </DropdownMenu>
+        </ButtonDropdown>
         <CreateTools />
         <ArticleList articles={this.state.articles} />
       </div>
