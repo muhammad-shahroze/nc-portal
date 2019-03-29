@@ -14,13 +14,14 @@ export const fetchUserByUsername = async username => {
   return data.user;
 };
 
-export const fetchArticles = async (topic, sort_by, order) => {
+export const fetchArticles = async (topic, sort_by, order, page) => {
   let query = "";
-  if (topic || sort_by || order) {
+  if (topic || sort_by || order || page) {
     const queryArr = [
       topic ? `topic=${topic}` : "",
       sort_by ? `sort_by=${sort_by}` : "",
-      order ? `order=${order}` : ""
+      order ? `order=${order}` : "",
+      page ? `page=${page}` : ""
     ];
     query +=
       "?" +
@@ -31,7 +32,7 @@ export const fetchArticles = async (topic, sort_by, order) => {
         .join("&");
   }
   const { data } = await request.get(`/articles${query}`);
-  return data.articles;
+  return data;
 };
 
 export const getArticleById = async article_id => {

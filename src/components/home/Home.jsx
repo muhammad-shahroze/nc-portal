@@ -15,13 +15,16 @@ class Home extends Component {
   state = {
     articles: [],
     filterdropdownOpen: false,
-    sortdropdownOpen: false
+    sortdropdownOpen: false,
+    total_count: 0,
+    currentPage: 1
   };
 
   componentDidMount() {
-    fetchArticles().then(articles =>
+    fetchArticles().then(({ articles, total_count }) =>
       this.setState({
-        articles
+        articles,
+        total_count
       })
     );
   }
@@ -39,7 +42,7 @@ class Home extends Component {
   };
 
   filterByTopic = topic => {
-    fetchArticles(topic).then(articles => {
+    fetchArticles(topic).then(({ articles }) => {
       this.setState({
         articles
       });
@@ -47,11 +50,46 @@ class Home extends Component {
   };
 
   sortArticles = (sortBy, order) => {
-    fetchArticles(null, sortBy, order).then(articles => {
+    fetchArticles(null, sortBy, order).then(({ articles }) => {
       this.setState({
         articles
       });
     });
+  };
+
+  getArticlesByPage = pageNumber => {
+    const totalPages = Math.ceil(this.state.total_count / 10);
+    console.log(pageNumber);
+    if (pageNumber === 0) {
+      this.setState({ currentPage: 1 });
+    } else if (pageNumber > totalPages) {
+      this.setState({ currentPage: totalPages });
+    } else {
+      fetchArticles(null, null, null, pageNumber).then(({ articles }) => {
+        this.setState({
+          articles,
+          currentPage: pageNumber
+        });
+        window.scroll(0, 0);
+      });
+    }
+  };
+
+  getNumberOfPages = () => {
+    const totalPages = Math.ceil(this.state.total_count / 10);
+    let pagesArray = [];
+    for (let i = 1; i <= totalPages; i++) {
+      pagesArray.push(
+        <li
+          className="page-item"
+          key={i}
+          onMouseDown={() => this.getArticlesByPage(i)}
+        >
+          <a className="page-link">{i}</a>
+        </li>
+      );
+    }
+    return pagesArray;
   };
 
   render() {
@@ -121,6 +159,33 @@ class Home extends Component {
         </Row>
         <CreateTools />
         <ArticleList articles={this.state.articles} />
+        <nav aria-label="Page navigation example">
+          <ul className="pagination">
+            <li
+              className="page-item"
+              onMouseDown={() => {
+                this.setState({ currentPage: this.state.currentPage - 1 }, () =>
+                  this.getArticlesByPage(this.state.currentPage)
+                );
+              }}
+            >
+              <a className="page-link">Previous</a>
+            </li>
+            {this.getNumberOfPages().map(page => {
+              return page;
+            })}
+            <li
+              className="page-item"
+              onMouseDown={() => {
+                this.setState({ currentPage: this.state.currentPage + 1 }, () =>
+                  this.getArticlesByPage(this.state.currentPage)
+                );
+              }}
+            >
+              <a className="page-link">Next</a>
+            </li>
+          </ul>
+        </nav>
       </div>
     );
   }
