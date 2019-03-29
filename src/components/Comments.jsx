@@ -82,12 +82,12 @@ export class Comments extends Component {
             <Card>
               <CardBody>
                 <form>
-                  <div class="form-group">
-                    <label for="exampleFormControlTextarea1" />
+                  <div className="form-group">
+                    <label htmlFor="exampleFormControlTextarea1" />
                     <textarea
                       name="newCommentBody"
                       value={this.state.newCommentBody}
-                      class="form-control"
+                      className="form-control"
                       id="exampleFormControlTextarea1"
                       rows="3"
                       type="text"
@@ -112,7 +112,7 @@ export class Comments extends Component {
               className="articles-list-card d-flex flex-row mb-2 rounded-0"
               bg="dark"
               text="white"
-              key={comment.article_id}
+              key={index}
             >
               <div className="h-100 voting-container d-flex flex-column text-center">
                 <Button

@@ -16,7 +16,7 @@ export class CreateTools extends Component {
 
   render() {
     return (
-      <Row className="mb-2">
+      <Row className="mb-2" style={{ marginLeft: 200 }}>
         <Col>
           {localStorage.getItem("user") ? (
             <div className="float-right">

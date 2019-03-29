@@ -9,7 +9,7 @@ import Comments from "./Comments";
 import { Card } from "react-bootstrap";
 import { Button } from "reactstrap";
 import "../styling/article.css";
-import {getUserLoginStatus} from "../utils/getUserLoginStatus"
+import { getUserLoginStatus } from "../utils/getUserLoginStatus";
 let moment = require("moment");
 
 class Article extends Component {
@@ -42,7 +42,6 @@ class Article extends Component {
   };
 
   render() {
-    console.log(this.props);
     const { article, voteChange } = this.state;
     return (
       <div>
@@ -61,7 +60,12 @@ class Article extends Component {
             >
               <i className="fa fa-arrow-up text-success" aria-hidden="true" />
             </Button>
-            <p className="vote-count"> {typeof article.votes === 'number' ? article.votes + voteChange : null} </p>
+            <p className="vote-count">
+              {" "}
+              {typeof article.votes === "number"
+                ? article.votes + voteChange
+                : null}{" "}
+            </p>
             <Button
               className="vote"
               color="secondary"
@@ -81,8 +85,9 @@ class Article extends Component {
               <small className="text-info float-right">
                 date posted - {moment(article.created_at).format("YYYY MM DD")}
               </small>
-              {getUserLoginStatus() && JSON.parse(localStorage.getItem("user")).username ===
-              this.state.article.author ? (
+              {getUserLoginStatus() &&
+              JSON.parse(localStorage.getItem("user")).username ===
+                this.state.article.author ? (
                 <Button
                   color="danger"
                   size="sm"

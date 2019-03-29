@@ -120,6 +120,7 @@ class AllUsersModal extends Component {
                 variant="secondary"
                 type="button"
                 onClick={this.registerUser}
+                disabled={this.state.username === ""}
               >
                 Register
               </Button>

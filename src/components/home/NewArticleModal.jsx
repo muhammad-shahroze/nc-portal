@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
-import { fetchTopics } from "../../utils/API-Requests";
+import { fetchTopics, postTopic } from "../../utils/API-Requests";
 import { postArticle } from "../../utils/API-Requests";
 import { navigate } from "@reach/router";
 import { handleChange } from "../../utils/handleChange";
@@ -12,7 +12,8 @@ export class NewArticleModal extends Component {
     title: "",
     topic: "",
     body: "",
-    author: ""
+    newTopic: "",
+    newTopicDescription: ""
   };
 
   toggleNewArticleModal = () => {
@@ -32,16 +33,26 @@ export class NewArticleModal extends Component {
 
   createNewArticle = event => {
     event.preventDefault();
-    const { title, body, author, topic } = this.state;
+    const { title, body, topic, newTopic, newTopicDescription } = this.state;
+    let articleTopic = topic;
+    if (articleTopic === "Other") {
+      articleTopic = newTopic;
+    }
     const newArticle = {
       title,
       body,
-      author,
-      topic
+      author: JSON.parse(localStorage.getItem("user")).username,
+      topic: articleTopic
     };
-    postArticle(newArticle).then(article => {
-      navigate(`/articles/${article.article_id}`);
-    });
+    const newTopicObject = {
+      slug: newTopic,
+      description: newTopicDescription
+    };
+    postTopic(newTopicObject).then(
+      postArticle(newArticle).then(article => {
+        navigate(`/articles/${article.article_id}`);
+      })
+    );
     this.toggleNewArticleModal();
   };
 
@@ -77,11 +88,35 @@ export class NewArticleModal extends Component {
                   name="topic"
                   onChange={e => this.setState(handleChange(e))}
                 >
+                  <option>{"Choose your Topic"}</option>
                   {this.state.topics.map(topic => {
                     return <option key={topic.slug}>{topic.slug}</option>;
                   })}
+                  <option value="Other">Other</option>
                 </Form.Control>
               </Form.Group>
+              {this.state.topic === "Other" ? (
+                <div>
+                  <Form.Group>
+                    <Form.Control
+                      type="text"
+                      name="newTopic"
+                      onChange={e => this.setState(handleChange(e))}
+                      placeholder="e.g. Create your Topic"
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Control
+                      as="textarea"
+                      type="text"
+                      name="newTopicDescription"
+                      rows="3"
+                      onChange={e => this.setState(handleChange(e))}
+                      placeholder="e.g. Give it a description"
+                    />
+                  </Form.Group>
+                </div>
+              ) : null}
               <Form.Group>
                 <Form.Label>Body</Form.Label>
                 <Form.Control

@@ -8,6 +8,7 @@ import {
   DropdownItem,
   DropdownToggle
 } from "reactstrap";
+import { Row, Col } from "react-bootstrap";
 import "./Home.css";
 
 class Home extends Component {
@@ -56,51 +57,68 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <ButtonDropdown
-          className="filter-dropdown"
-          isOpen={this.state.filterdropdownOpen}
-          toggle={this.togglefilter}
+        <Row
+          className=""
+          style={{ width: "200px", position: "relative", top: 40 }}
         >
-          <DropdownToggle caret color="secondary" size="sm">
-            Filter
-          </DropdownToggle>
-          <DropdownMenu>
-            <DropdownItem onClick={() => this.filterByTopic()}>
-              All
-            </DropdownItem>
-            <DropdownItem onClick={() => this.filterByTopic("football")}>
-              Football
-            </DropdownItem>
-            <DropdownItem onClick={() => this.filterByTopic("cooking")}>
-              Cooking
-            </DropdownItem>
-            <DropdownItem onClick={() => this.filterByTopic("coding")}>
-              Coding
-            </DropdownItem>
-          </DropdownMenu>
-        </ButtonDropdown>
+          <Col>
+            <ButtonDropdown
+              className="filter-dropdown"
+              isOpen={this.state.filterdropdownOpen}
+              toggle={this.togglefilter}
+            >
+              <DropdownToggle caret color="secondary" size="sm">
+                Filter
+              </DropdownToggle>
+              <DropdownMenu>
+                <DropdownItem onClick={() => this.filterByTopic()}>
+                  All
+                </DropdownItem>
+                <DropdownItem onClick={() => this.filterByTopic("football")}>
+                  Football
+                </DropdownItem>
+                <DropdownItem onClick={() => this.filterByTopic("cooking")}>
+                  Cooking
+                </DropdownItem>
+                <DropdownItem onClick={() => this.filterByTopic("coding")}>
+                  Coding
+                </DropdownItem>
+              </DropdownMenu>
+            </ButtonDropdown>
 
-        <ButtonDropdown
-          className="sort-dropdown ml-2"
-          isOpen={this.state.sortdropdownOpen}
-          toggle={this.toggleSort}
-        >
-          <DropdownToggle caret color="secondary" size="sm">
-            Sort
-          </DropdownToggle>
-          <DropdownMenu>
-            <DropdownItem onClick={() => this.sortArticles()}>All</DropdownItem>
-            <DropdownItem onClick={() => this.sortArticles("created_at")}>
-              Date
-            </DropdownItem>
-            <DropdownItem onClick={() => this.sortArticles("comment_count")}>
-              Comments
-            </DropdownItem>
-            <DropdownItem onClick={() => this.sortArticles("votes")}>
-              Votes
-            </DropdownItem>
-          </DropdownMenu>
-        </ButtonDropdown>
+            <ButtonDropdown
+              className="sort-dropdown ml-2"
+              isOpen={this.state.sortdropdownOpen}
+              toggle={this.toggleSort}
+            >
+              <DropdownToggle caret color="secondary" size="sm">
+                Sort
+              </DropdownToggle>
+              <DropdownMenu>
+                <DropdownItem onClick={() => this.sortArticles()}>
+                  All
+                </DropdownItem>
+                <DropdownItem onClick={() => this.sortArticles("created_at")}>
+                  Date
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => this.sortArticles("comment_count")}
+                >
+                  Comments
+                </DropdownItem>
+                <DropdownItem onClick={() => this.sortArticles("votes")}>
+                  Votes
+                </DropdownItem>
+                <DropdownItem onClick={() => this.sortArticles(null, "asc")}>
+                  Order - Top
+                </DropdownItem>
+                <DropdownItem onClick={() => this.sortArticles(null, "desc")}>
+                  Order - Bottom
+                </DropdownItem>
+              </DropdownMenu>
+            </ButtonDropdown>
+          </Col>
+        </Row>
         <CreateTools />
         <ArticleList articles={this.state.articles} />
       </div>
