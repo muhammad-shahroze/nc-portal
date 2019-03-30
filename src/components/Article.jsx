@@ -110,33 +110,3 @@ class Article extends Component {
 }
 
 export default Article;
-
-// <div>
-// <h2>{article.title}</h1>
-// <h3>Author: {article.author}</h3>
-// <h4>Topic: {article.topic}</h3>
-// <h5>{article.body}</h4>
-
-// <div className="interact">
-
-//   <ArticleVoter
-//     article_id={this.props.article_id}
-//     votes={article.votes}
-//   />
-
-//   <h5 className="a_comments">
-//     {this.state.article.comment_count} - Comments
-//   </h5>
-
-//   <button
-//     type="button"
-//     class="btn btn-outline-danger delete-article-button"
-//     onClick={event => this.handleDelete(event)}
-//   >
-//     Delete Post
-//   </button>
-
-// </div>
-// <NewComment />
-// <Comments article_id={this.props.article_id} />
-// </div>

@@ -142,5 +142,6 @@ body {
   border-radius: 1.2rem;
 }
 
-.App {
+.container {
+  margin-top: 15px;
 }

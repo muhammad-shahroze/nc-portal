@@ -22,5 +22,13 @@
   margin-top: 0.2em;
 }
 
-.sort-dropdown {
+.page-link {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #fff;
+  background-color: #5a6268;
+  border: 1px solid #545b62;
 }

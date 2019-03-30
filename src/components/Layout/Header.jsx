@@ -14,6 +14,11 @@ export class Header extends Component {
               Home
             </Link>
           </Nav>
+          <Nav>
+            <Link className="nav-link" to="/articles">
+              My Articles
+            </Link>
+          </Nav>
         </Nav>
         <UserDashboard className="mr-sm-2" />
       </Navbar>

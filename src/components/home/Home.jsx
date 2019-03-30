@@ -85,7 +85,7 @@ class Home extends Component {
           key={i}
           onMouseDown={() => this.getArticlesByPage(i)}
         >
-          <a className="page-link">{i}</a>
+          <button className="page-link">{i}</button>
         </li>
       );
     }
@@ -160,7 +160,7 @@ class Home extends Component {
         <CreateTools />
         <ArticleList articles={this.state.articles} />
         <nav aria-label="Page navigation example">
-          <ul className="pagination">
+          <ul className="pagination pagination-sm justify-content-end">
             <li
               className="page-item"
               onMouseDown={() => {
@@ -169,7 +169,7 @@ class Home extends Component {
                 );
               }}
             >
-              <a className="page-link">Previous</a>
+              <button className="page-link">Previous</button>
             </li>
             {this.getNumberOfPages().map(page => {
               return page;
@@ -182,7 +182,7 @@ class Home extends Component {
                 );
               }}
             >
-              <a className="page-link">Next</a>
+              <button className="page-link">Next</button>
             </li>
           </ul>
         </nav>
