@@ -36,7 +36,7 @@ export class NewTopicModal extends Component {
         <Button variant="warning" onClick={this.toggleNewTopicModal}>
           New Topic
         </Button>
-        <Modal show={this.state.showing}>
+        <Modal show={this.state.showing} onHide={this.toggleNewTopicModal}>
           <Modal.Header closeButton>
             <Modal.Title>Modal heading</Modal.Title>
           </Modal.Header>

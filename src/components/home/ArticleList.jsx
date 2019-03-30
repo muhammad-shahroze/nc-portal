@@ -20,7 +20,7 @@ function ArticleList({ articles }) {
             <i className="fa fa-arrow-down text-danger" aria-hidden="true" />
           </div>
           <img
-            src="https://gravatar.com/avatar/daae8ff3e846e64540b17fa511d43a3d?s=200&d=robohash&r=x"
+            src={JSON.parse(localStorage.getItem("user")).avatar_url}
             alt="..."
             className="img-thumbnail float-left"
             width="200"
